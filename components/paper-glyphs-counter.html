@@ -1,0 +1,104 @@
+<!--
+Example:
+
+    <paper-input-decorator>
+        <textarea id="chars"></textarea>
+        <paper-glyphs-counter target="chars"></paper-glyphs-counter>
+    </paper-input-decorator>
+
+@group Paper Elements
+@element paper-glyphs-counter
+-->
+<link href="../dep/polymer/polymer.html" rel="import">
+<link href="../dep/core-style/core-style.html" rel="import">
+
+<core-style id="paper-glyphs-counter">
+:host(.invalid) {
+    color: {{g.paperInput.invalidColor}};
+}
+</core-style>
+
+<polymer-element name="paper-glyphs-counter">
+
+<template>
+
+    <style>
+    :host {
+        display: inline-block;
+        float: right;
+        color: #757575;
+        font-size: 0.75em;
+        padding: 0.5em 0 0.5em 0.5em;
+    }
+    </style>
+
+    <core-style ref="paper-glyphs-counter"></core-style>
+
+    <div class="counter-text" aria-hidden="true" hidden?="{{!_glyphCount}}">
+        <span>Chars: {{_charCount}} / Glyphs: {{_glyphCount}}</span>
+    </div>
+
+</template>
+
+<script>
+
+    Polymer({
+
+        publish: {
+            /**
+             * The id of the textinput or textarea that should be monitored.
+             *
+             * @attribute target
+             * @type string
+             * @default null
+             */
+            target: null
+        },
+
+        /* Number of characters in the current input */
+        _charCount: 0,
+
+        /* Number of glyphs in the current input */
+        _glyphCount: 0,
+
+        /* Input glyphs */
+        _glyphs: '',
+
+        ready: function () {
+            if (!this.target) {
+                return;
+            }
+            var targetElement = document.getElementById(this.target);
+            targetElement.addEventListener('input', this.inputAction.bind(this));
+        },
+
+        inputAction: function (e) {
+            var chars = e.target.value;
+
+            this._glyphs = this._getGlyphs(chars);
+            this._charCount = chars.length;
+            this._glyphCount = this._glyphs.length;
+        },
+
+        _glyphsChanged: function () {
+            this.fire('glyphs-update', {
+                glyphs: this._glyphs
+            });
+        },
+
+        _getGlyphs: function (str) {
+            var glyphs = [];
+
+            str.split('').forEach(function (value) {
+                if (glyphs.indexOf(value) === -1) {
+                    glyphs.push(value);
+                }
+            });
+
+            return glyphs.join('');
+        }
+    });
+
+</script>
+
+</polymer-element>

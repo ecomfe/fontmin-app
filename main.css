@@ -1,0 +1,50 @@
+body {
+    color: #333;
+    font-size: 14px;
+}
+
+.source {
+    background: #eee;
+}
+.result {
+    background: #fff;
+}
+
+.content,
+.preview {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    overflow: auto;
+}
+.action,
+.output {
+    height: 70px;
+    box-sizing: border-box;
+}
+
+.action {
+    padding: 10px;
+}
+file-drop {
+    color: #999;
+    text-align: center;
+    border: 2px dotted #ccc;
+    box-sizing: border-box;
+}
+.generate {
+    position: relative;
+    width: 50px;
+    margin-left: 10px;
+    text-align: center;
+    background: #009688;
+    color: #fff;
+}
+.generate.disabled {
+    background: #ccc;
+}
+.generate paper-ripple {
+    overflow: hidden;
+}
+.generate.disabled paper-ripple {
+    display: none;
+}

@@ -1,6 +1,6 @@
 {
   "name": "fontmin-app",
-  "main": "index.html",
+  "main": "main.html",
   "private": true,
   "description": "fontmin as an OS X, Linux and Windows app.",
   "version": "0.1.0",
