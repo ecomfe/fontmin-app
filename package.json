@@ -1,0 +1,36 @@
+{
+  "name": "fontmin-app",
+  "main": "index.html",
+  "private": true,
+  "description": "fontmin as an OS X, Linux and Windows app.",
+  "version": "0.1.0",
+  "keywords": [
+    "fontmin",
+    "fonteditor",
+    "efe",
+    "app"
+  ],
+  "window": {
+    "title": "Fontmin App",
+    "toolbar": true,
+    "min_width": 740,
+    "min_height": 450,
+    "width": 840,
+    "height": 550,
+    "resizable": true,
+    "position": "center"
+  },
+  "maintainers": [
+    {
+      "name": "Firede",
+      "email": "firede@firede.us"
+    },
+    {
+      "name": "Junmer",
+      "email": "junmer@foxmail.com"
+    }
+  ],
+  "dependencies": {
+    "fontmin": "^0.4.11"
+  }
+}
