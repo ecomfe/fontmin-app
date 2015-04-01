@@ -13,6 +13,7 @@
     "normalize-css": "~3.0.2",
     "file-drop": "~0.0.1",
     "core-icon": "Polymer/core-icon#~0.5.5",
-    "paper-ripple": "Polymer/paper-ripple#~0.5.5"
+    "paper-ripple": "Polymer/paper-ripple#~0.5.5",
+    "paper-progress": "Polymer/paper-progress#~0.5.5"
   }
 }
