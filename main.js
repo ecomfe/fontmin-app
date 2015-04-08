@@ -3,9 +3,6 @@
  * @author Firede <firede@firede.us>
  */
 
-
-
-
 /**
  * 初始化目录
  *
@@ -21,7 +18,6 @@ function initMenu() {
     nativeMenuBar.createMacBuiltin('Fontmin');
     win.menu = nativeMenuBar;
 }
-
 
 /**
  * Main

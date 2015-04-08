@@ -1,0 +1,92 @@
+<!--
+Fontmin Preview Panel
+
+Example:
+
+<fm-preview></fm-preview>
+
+@group Fontmin Elements
+@element fm-preview
+-->
+<link rel="import" href="../dep/polymer/polymer.html">
+
+<polymer-element name="fm-preview" on-click="toggleMode" attributes="dark, font">
+
+<template>
+    <style>
+    :host {
+        padding: 1em 1.2em;
+        background: #fff;
+        font-size: 1.6em;
+        font-weight: 400;
+        font-family: "{{ fontFamily }}", sans-serif;
+        transition: background,color .5s ease;
+    }
+    :host([dark]) {
+        color: #fff;
+        background: #333;
+    }
+    </style>
+
+    <content id="content"></content>
+</template>
+
+<script>
+
+    Polymer({
+
+        publish: {
+            dark: false
+        },
+
+        setContent: function (value) {
+
+            if (!value) {
+                var defaultContent = [
+                    '东风夜放花千树。',
+                    '更吹落、星如雨。',
+                    '宝马雕车香满路。',
+                    '凤箫声动，玉壶光转，一夜鱼龙舞。',
+                    '蛾儿雪柳黄金缕。',
+                    '笑语盈盈暗香去。',
+                    '众里寻他千百度。',
+                    '蓦然回首，那人却在，灯火阑珊处。'
+                ];
+                this.$.content.innerHTML = defaultContent.join('<br>');
+            }
+            else {
+                this.$.content.innerHTML = this.encodeHTML(value);
+            }
+        },
+
+        ready: function () {
+            this.setContent();
+            this.fontFamily = 'Helvetica Neue';
+        },
+
+        toggleMode: function () {
+            this.dark = !this.dark;
+        },
+
+        darkChanged: function (_, newValue) {
+            newValue ? this.setAttribute('dark', true) : this.removeAttribute('dark');
+        },
+
+        encodeHTML: function (str) {
+            if (!str) {
+                return '';
+            }
+
+            return String(str).replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/\n/g, '<br>');
+        }
+
+    });
+
+</script>
+
+</polymer-element>

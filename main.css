@@ -10,11 +10,13 @@ body {
     background: #fff;
 }
 
-.content,
-.preview {
+.content {
     padding: 15px 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, .12);
     overflow: auto;
+}
+.content,
+fm-preview {
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
 }
 .action,
 .output {
