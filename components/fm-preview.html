@@ -1,5 +1,5 @@
 <!--
-Fontmin Preview Panel
+Fontmin Preview
 
 Example:
 
@@ -9,40 +9,61 @@ Example:
 @element fm-preview
 -->
 <link rel="import" href="../dep/polymer/polymer.html">
+<link rel="import" href="../dep/layout/layout.html">
 
-<polymer-element name="fm-preview" on-click="toggleMode" attributes="dark, font">
-
-<template>
+<dom-module id="fm-preview">
     <style>
-    :host {
-        padding: 1em 1.2em;
-        background: #fff;
-        font-size: 1.6em;
-        font-weight: 400;
-        font-family: "{{ fontFamily }}", sans-serif;
-        transition: background,color .5s ease;
-    }
-    :host([dark]) {
-        color: #fff;
-        background: #333;
-    }
+        :host {
+            padding: 20px;
+            background: #fff;
+            font-size: 1.4em;
+            line-height: 1.6em;
+            transition: background, color .3s ease;
+            overflow: auto;
+            -webkit-user-select: none;
+        }
+        :host([dark]) {
+            color: #fff;
+            background: #505050;
+        }
+        #tips {
+            opacity: .3;
+        }
+        #content {
+            font-weight: 400;
+        }
     </style>
 
-    <content id="content"></content>
-</template>
+    <template>
+        <small hidden$="[[_computeTipsStatus(content)]]" id="tips">示例文字，请在左侧输入文本片段</small>
+        <div id="content"></div>
+    </template>
+</dom-module>
 
 <script>
-
     Polymer({
+        is: 'fm-preview',
 
-        publish: {
-            dark: false
+        properties: {
+            dark: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true
+            },
+            content: {
+                type: String,
+                value: ''
+            }
+        },
+
+        _computeTipsStatus: function (value) {
+            return !!value;
         },
 
         setContent: function (value) {
-
             if (!value) {
                 var defaultContent = [
+                    '青玉案·元夕',
                     '东风夜放花千树。',
                     '更吹落、星如雨。',
                     '宝马雕车香满路。',
@@ -52,9 +73,12 @@ Example:
                     '众里寻他千百度。',
                     '蓦然回首，那人却在，灯火阑珊处。'
                 ];
+
+                this.content = '';
                 this.$.content.innerHTML = defaultContent.join('<br>');
             }
             else {
+                this.content = value;
                 this.$.content.innerHTML = this.encodeHTML(value);
             }
         },
@@ -62,13 +86,15 @@ Example:
         ready: function () {
             this.setContent();
             this.fontFamily = 'Helvetica Neue';
+
+            this.addEventListener('click', this.toggleMode.bind(this));
         },
 
         toggleMode: function () {
             this.dark = !this.dark;
         },
 
-        darkChanged: function (_, newValue) {
+        darkChanged: function (newValue) {
             newValue ? this.setAttribute('dark', true) : this.removeAttribute('dark');
         },
 
@@ -84,9 +110,5 @@ Example:
                 .replace(/'/g, '&#39;')
                 .replace(/\n/g, '<br>');
         }
-
     });
-
 </script>
-
-</polymer-element>

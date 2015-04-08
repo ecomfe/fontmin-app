@@ -1,0 +1,94 @@
+<!--
+Fontmin File Drop
+===
+
+Examples:
+
+    <fm-file-drop
+        desc="Drop fonts (*.ttf) here."
+        accept-suffixes='[".ttf"]'
+        on-error="..."
+        on-file-dropped="...">
+    </fm-file-drop>
+
+-->
+
+<link rel="import" href="../dep/polymer/polymer.html">
+
+<dom-module id="fm-file-drop">
+    <style>
+    :host {
+        -webkit-user-select: none;
+    }
+    </style>
+    <template>
+        <span id="desc">{{desc}}</span>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: 'fm-file-drop',
+
+        properties: {
+            desc: {
+                type: String,
+                value: 'drop files here.'
+            },
+            acceptSuffixes: {
+                type: Array,
+                value: ['.ttf', '.otf', '.woff']
+            }
+        },
+
+        ready: function () {
+            this.ondragover = function (evt) {
+                evt.stopPropagation();
+                this.progressInvisible = true;
+
+                if (!this.classList.contains('over')) {
+                    this.classList.add('over');
+                }
+
+                return false;
+            };
+
+            this.ondragleave = function () {
+                if (this.classList.contains('over')) {
+                    this.classList.remove('over');
+                }
+
+                return false;
+            };
+
+            this.ondrop = function (evt) {
+                evt.preventDefault();
+
+                if (this.classList.contains('over')) {
+                    this.classList.remove('over');
+                }
+
+                // dropped file
+                var file = evt.dataTransfer.files[0];
+
+                // check extname
+                var extInfo = file.path.match(/\.[^\.]+$/);
+                if (extInfo) {
+                    var extname = extInfo[0].toLowerCase();
+                    if (this.acceptSuffixes.indexOf(extname) === -1) {
+                        // fire error
+                        this.fire('error', {
+                            type: 'suffix',
+                            file: file
+                        });
+
+                        return false;
+                    }
+                }
+
+                // fire event
+                this.fire('file-dropped', {file: file});
+            };
+        }
+    });
+</script>

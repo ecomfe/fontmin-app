@@ -3,20 +3,30 @@
 <head>
     <title>Fontmin</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="dep/normalize-css/normalize.css">
-    <link rel="import" href="dep/paper-input/paper-input-decorator.html">
-    <link rel="import" href="dep/paper-input/paper-autogrow-textarea.html">
-    <link rel="import" href="components/paper-glyphs-counter.html">
-    <link rel="import" href="dep/paper-ripple/paper-ripple.html">
-    <link rel="import" href="dep/core-icon/core-icon.html">
-    <link rel="import" href="dep/paper-spinner/paper-spinner.html">
-    <link rel="import" href="dep/file-drop/file-drop.html">
 
-    <link rel="import" href="components/fm-preview.html">
+    <!-- styles -->
+    <link rel="stylesheet" href="dep/normalize-css/normalize.css">
     <link rel="stylesheet" href="main.css">
+
+    <!-- components -->
+    <link rel="import" href="components/fm-main.html">
+
+    <style>
+    body {
+        color: #333;
+        overflow:hidden;
+    }
+    </style>
 </head>
 
-<body fullbleed horizontal layout unresolved>
+
+<body>
+
+    <fm-main></fm-main>
+
+    <script src="main.js"></script>
+</body>
+<!-- <body fullbleed horizontal layout unresolved>
     <div class="source" flex one vertical layout>
         <div class="content" flex>
             <paper-input-decorator label="如需精简字体，请输入正文内容">
@@ -49,5 +59,5 @@
         </div>
     </div>
     <script src="main.js"></script>
-</body>
+</body> -->
 </html>

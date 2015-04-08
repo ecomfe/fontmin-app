@@ -1,0 +1,121 @@
+<!--
+Fontmin Glyphs Input
+===
+
+Examples:
+
+    <fm-glyphs-input
+        id="glyphsInput"
+        on-value-changed="onInputValueChanged"
+        label="文本片段"
+        placeholder="输入文本进行字体子集化，输出字体只包含所选字型">
+    </fm-glyphs-input>
+
+-->
+
+<link rel="import" href="../dep/polymer/polymer.html">
+<link rel="import" href="../dep/layout/layout.html">
+
+<dom-module id="fm-glyphs-input">
+    <style>
+    :host {
+        position: relative;
+    }
+
+    #chars {
+        padding: 8px 20px 20px;
+        overflow: auto;
+        resize: none;
+        outline: none;
+        border: none;
+        background: transparent;
+        line-height: 1.6em;
+    }
+    #label {
+        height: 20px;
+        line-height: 20px;
+        font-size: 12px;
+        margin: 10px 20px 0;
+        color: #009688;
+        border-bottom: 1px solid #009688;
+        -webkit-user-select: none;
+    }
+    #label h4 {
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+    }
+    #count {
+        float: right;
+        font-size: 10px;
+    }
+    </style>
+    <template>
+        <div id="label">
+            <h4>{{label}}</h4>
+            <span hidden$="[[!_charCount]]" id="count">Chars: <span>{{_charCount}}</span> / Glyphs: <span>{{_glyphCount}}</span></span>
+        </div>
+        <textarea class="flex" id="chars" placeholder="{{placeholder}}" value="{{value::input}}"></textarea>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: 'fm-glyphs-input',
+
+        hostAttributes: {
+            class: "flex vertical layout"
+        },
+
+        properties: {
+            label: {
+                type: String,
+                value: '正文'
+            },
+
+            placeholder: {
+                type: String,
+                value: ''
+            },
+
+            value: {
+                type: String,
+                value: '',
+                observer: 'valueChanged'
+            },
+
+            _charCount: {
+                type: Number,
+                value: 0
+            },
+
+            _glyphCount: {
+                type: Number,
+                value: 0
+            }
+        },
+
+        _getGlyphCount: function (str) {
+            var glyphs = [];
+
+            str.split('').forEach(function (value) {
+                if (glyphs.indexOf(value) === -1) {
+                    glyphs.push(value);
+                }
+            });
+
+            return glyphs.join('').length;
+        },
+
+        valueChanged: function (newValue, oldValue) {
+
+            this._charCount = this.value.length;
+            this._glyphCount = this._getGlyphCount(this.value);
+
+            this.fire('value-changed', {
+                newValue: newValue,
+                oldValue: oldValue
+            });
+        }
+    });
+</script>

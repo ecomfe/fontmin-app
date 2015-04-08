@@ -1,0 +1,115 @@
+<link rel="import" href="../dep/polymer/polymer.html">
+<link rel="import" href="../dep/layout/layout.html">
+
+<link rel="import" href="fm-file-drop.html">
+<link rel="import" href="fm-glyphs-input.html">
+<link rel="import" href="fm-preview.html">
+
+<dom-module id="fm-main">
+    <style>
+        #panelInput {
+            background: #eee;
+        }
+        #panelOutput {
+            background: #fff;
+        }
+        #panelAction {
+            height: 70px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #glyphsInput {
+            border-bottom: 1px solid rgba(0, 0, 0, .12);
+        }
+        #fileDrop {
+            color: #999;
+            text-align: center;
+            border: 1px dashed #ccc;
+            box-sizing: border-box;
+            line-height: 50px;
+        }
+        #fileDrop.over {
+            color: #666;
+            background: #ddd;
+            border: 1px solid #999;
+            box-shadow: inset 1px 1px 5px rgba(0,0,0,.3);
+        }
+        #btnAction {
+            position: relative;
+            width: 50px;
+            line-height: 50px;
+            margin-left: 10px;
+            text-align: center;
+            background: #009688;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        #btnAction:hover {
+            background: #2fa79c;
+        }
+        #btnAction.disabled {
+            cursor: default;
+            background: #ccc;
+        }
+    </style>
+
+    <template>
+        <div id="panelInput" class="flex one vertical layout">
+
+            <fm-glyphs-input
+                id="glyphsInput"
+                on-value-changed="onInputValueChanged"
+                label="文本片段"
+                placeholder="输入文本进行字体子集化，输出字体只包含所选字型">
+            </fm-glyphs-input>
+
+            <div id="panelAction" class="horizontal layout">
+                <fm-file-drop
+                    id="fileDrop"
+                    class="flex"
+                    desc="将所需字体拖至此处 (*.ttf)"
+                    accept-suffixes='[".ttf"]'
+                    on-file-dropped="onFileDropped"
+                    on-error="onFileError">
+                </fm-file-drop>
+
+                <div id="btnAction" class="disabled">生成</div>
+            </div>
+        </div>
+        <div id="panelOutput" class="flex one vertical layout">
+            <fm-preview id="preview" class="flex"></fm-preview>
+        </div>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: 'fm-main',
+
+        hostAttributes: {
+            class: 'fit horizontal layout'
+        },
+
+        properties: {
+            content: {
+                type: String
+            }
+        },
+
+        onFileDropped: function (evt) {
+            // console.log(evt.detail.file.path);
+        },
+
+        onFileError: function (evt) {
+            if (evt.detail.type === 'suffix') {
+                alert('只有 ttf 文件才可以哦！');
+            }
+        },
+
+        onInputValueChanged: function (evt) {
+            this.content = evt.detail.newValue;
+            this.$.preview.setContent(this.content);
+        }
+    });
+</script>
