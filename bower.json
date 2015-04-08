@@ -8,12 +8,8 @@
     "test"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.5",
-    "paper-input": "Polymer/paper-input#~0.5.5",
-    "normalize-css": "~3.0.2",
-    "file-drop": "~0.0.1",
-    "core-icon": "Polymer/core-icon#~0.5.5",
-    "paper-ripple": "Polymer/paper-ripple#~0.5.5",
-    "paper-spinner": "Polymer/paper-spinner#~0.5.5"
+    "normalize-css": "~3.0.3",
+    "polymer": "Polymer/polymer#~0.8.0",
+    "layout": "Polymer/layout"
   }
 }
