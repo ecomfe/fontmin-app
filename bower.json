@@ -1,6 +1,7 @@
 {
   "name": "fontmin-app",
   "private": true,
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
