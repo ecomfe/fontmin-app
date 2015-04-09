@@ -1,8 +1,8 @@
 {
-  "name": "fontmin-app",
+  "name": "Fontmin",
   "main": "main.html",
   "private": true,
-  "description": "fontmin as an OS X, Linux and Windows app.",
+  "description": "fontmin as an OS X and Windows app.",
   "version": "0.1.0",
   "license": "MIT",
   "keywords": [
@@ -12,8 +12,8 @@
     "app"
   ],
   "window": {
-    "title": "Fontmin App",
-    "toolbar": true,
+    "title": "Fontmin",
+    "toolbar": false,
     "min_width": 740,
     "min_height": 450,
     "width": 840,
