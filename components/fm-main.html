@@ -88,7 +88,7 @@ Examples:
             background: #ccc;
         }
 
-        #layerOutput {
+        #loadingWrapper {
             color: #fff;
             background: rgba(0, 0, 0, .85);
             -webkit-user-select: none;
@@ -165,7 +165,7 @@ Examples:
             <fm-preview id="preview" class="flex"></fm-preview>
         </div>
 
-        <div id="layerOutput" hidden$="[[!showLayer]]" class="fit horizontal layout">
+        <div id="loadingWrapper" hidden$="[[!loading]]" class="fit horizontal layout">
             <span id="loading" class="flex self-center">
                 <span></span>
                 <span></span>
@@ -199,7 +199,7 @@ Examples:
                 type: Boolean,
                 value: false
             },
-            showLayer: {
+            loading: {
                 type: Boolean,
                 value: false
             }
@@ -236,10 +236,44 @@ Examples:
         },
 
         generate: function () {
-            if (this.$.generateAction.getAttribute('disabled') === null) {
-                console.log(this.family, this.src, this.content);
-                this.showLayer = true;
+            if (this.$.generateAction.getAttribute('disabled') !== null) {
+                return;
             }
+
+            var self = this;
+
+            this.loading = true;
+
+            var Fontmin = require('fontmin');
+            var dirName = this.family + '_' + (new Date()).getTime();
+            var distPath = require('path').join(process.cwd(), 'dist', dirName);
+
+            var fontmin = new Fontmin()
+                .src(this.src)
+                .use(Fontmin.glyph({
+                    text: this.content
+                }))
+                .use(Fontmin.ttf2eot({
+                    clone: true
+                }))
+                .use(Fontmin.ttf2woff({
+                    clone: true
+                }))
+                .use(Fontmin.ttf2svg({
+                    clone: true
+                }))
+                .use(Fontmin.css())
+                .dest(distPath);
+
+            fontmin.run(function (err, files) {
+                self.loading = false;
+
+                if (err) {
+                    alert(err);
+                }
+
+                require('nw.gui').Shell.showItemInFolder(distPath);
+            });
         }
     });
 </script>

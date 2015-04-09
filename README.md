@@ -1,7 +1,7 @@
 fontmin-app
 ===
 
-_Fontmin_ 是第一个纯 JavaScript 字体子集化方案，_Fontmin App_ 是它的客户端，提供了 _Mac OS X_、_Windows_、_Linux_ 平台下的发行版。
+_Fontmin_ 是第一个纯 JavaScript 实现的字体子集化方案，_Fontmin App_ 是它的客户端，提供了 _Mac OS X_、_Windows_、_Linux_ 平台下的发行版。
 
 [下载 Fontmin App 发行版](https://github.com/ecomfe/fontmin/releases)
 
