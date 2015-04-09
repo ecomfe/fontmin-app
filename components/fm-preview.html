@@ -96,7 +96,7 @@ Example:
             var self = this;
             var font = new FontFace(
                 family,
-                'url(file://' + src + ')'
+                'url("' + src + '")'
             );
 
             font.load().then(function (loaded) {
