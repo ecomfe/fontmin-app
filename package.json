@@ -19,7 +19,8 @@
     "width": 840,
     "height": 550,
     "resizable": true,
-    "position": "center"
+    "position": "center",
+    "icon": "fontmin.png"
   },
   "maintainers": [
     {
