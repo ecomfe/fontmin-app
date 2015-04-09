@@ -51,8 +51,13 @@ Example:
                 reflectToAttribute: true
             },
             content: {
-                type: String,
-                value: ''
+                type: String
+            },
+            family: {
+                type: String
+            },
+            src: {
+                type: String
             }
         },
 
@@ -83,9 +88,33 @@ Example:
             }
         },
 
+        setFont: function (family, src) {
+            var self = this;
+            var font = new FontFace(
+                family,
+                'url(' + src + ')'
+            );
+
+            font.load().then(function (loaded) {
+                document.fonts.add(loaded);
+
+                self.$.content.style.fontFamily = family;
+
+                self.family = family;
+                self.src = src;
+            });
+        },
+
+        resetFont: function () {
+            this.$.content.style.fontFamily = '"Helvetica Neue", Arial, sans-serif';
+
+            this.family = '';
+            this.src = '';
+        },
+
         ready: function () {
+            this.resetFont();
             this.setContent();
-            this.fontFamily = 'Helvetica Neue';
 
             this.addEventListener('click', this.toggleMode.bind(this));
         },

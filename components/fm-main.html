@@ -1,3 +1,13 @@
+<!--
+Fontmin Main
+===
+
+Examples:
+
+    <fm-main></fm-main>
+
+-->
+
 <link rel="import" href="../dep/polymer/polymer.html">
 <link rel="import" href="../dep/layout/layout.html">
 
@@ -34,7 +44,32 @@
             border: 1px solid #999;
             box-shadow: inset 1px 1px 5px rgba(0,0,0,.3);
         }
-        #btnAction {
+        #selectedFont {
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            position: relative;
+        }
+        #selectedFont h4 {
+            font-weight: 400;
+            line-height: 50px;
+            height: 50px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            margin: 0 50px 0 20px;
+        }
+        #resetFont {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            line-height: 30px;
+            color: #009688;
+            cursor: pointer;
+        }
+        #resetFont:hover {
+            color: #2fa79c;
+        }
+        #generateAction {
             position: relative;
             width: 50px;
             line-height: 50px;
@@ -45,10 +80,10 @@
             cursor: pointer;
             font-size: 14px;
         }
-        #btnAction:hover {
+        #generateAction:hover {
             background: #2fa79c;
         }
-        #btnAction.disabled {
+        #generateAction[disabled] {
             cursor: default;
             background: #ccc;
         }
@@ -68,13 +103,21 @@
                 <fm-file-drop
                     id="fileDrop"
                     class="flex"
+                    hidden$="[[selected]]"
                     desc="将所需字体拖至此处 (*.ttf)"
                     accept-suffixes='[".ttf"]'
                     on-file-dropped="onFileDropped"
                     on-error="onFileError">
                 </fm-file-drop>
 
-                <div id="btnAction" class="disabled">生成</div>
+                <div id="selectedFont" hidden$="[[!selected]]" class="flex">
+                    <h4>{{family}}</h4>
+                    <span id="resetFont" on-click="resetFont">取消</span>
+                </div>
+
+                <div id="generateAction"
+                    disabled$="[[_isGenerateDisabled(content,selected)]]"
+                    on-click="generate">生成</div>
             </div>
         </div>
         <div id="panelOutput" class="flex one vertical layout">
@@ -94,22 +137,51 @@
         properties: {
             content: {
                 type: String
+            },
+            family: {
+                type: String
+            },
+            src: {
+                type: String
+            },
+            selected: {
+                type: Boolean,
+                value: false
             }
         },
 
+        _isGenerateDisabled: function (content, selected) {
+            return !this.selected || !this.content;
+        },
+
         onFileDropped: function (evt) {
-            // console.log(evt.detail.file.path);
+            var file = evt.detail.file;
+
+            this.family = file.name.replace(/\.ttf$/i, '');
+            this.src = file.path;
+            this.selected = !this.selected;
+
+            this.$.preview.setFont(this.family, this.src);
         },
 
         onFileError: function (evt) {
             if (evt.detail.type === 'suffix') {
-                alert('只有 ttf 文件才可以哦！');
+                alert('只支持 *.ttf 格式哦！');
             }
         },
 
         onInputValueChanged: function (evt) {
             this.content = evt.detail.newValue;
             this.$.preview.setContent(this.content);
+        },
+
+        resetFont: function () {
+            this.$.preview.resetFont();
+            this.selected = !this.selected;
+        },
+
+        generate: function () {
+            console.log(this.family, this.src, this.content);
         }
     });
 </script>
