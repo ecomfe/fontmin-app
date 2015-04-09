@@ -19,9 +19,18 @@ function initMenu() {
     win.menu = nativeMenuBar;
 }
 
+function preventDefault(evt) {
+    evt.preventDefault();
+    return false;
+}
+
 /**
  * Main
  */
 window.addEventListener('load', function () {
     initMenu();
+
+    // Prevent drag events
+    window.ondragover = preventDefault;
+    window.ondrop = preventDefault;
 });
