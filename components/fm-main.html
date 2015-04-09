@@ -20,7 +20,7 @@ Examples:
         #panelInput {
             background: #eee;
         }
-        #panelOutput {
+        #panelPreview {
             background: #fff;
         }
         #panelAction {
@@ -87,9 +87,49 @@ Examples:
             cursor: default;
             background: #ccc;
         }
+
+        #layerOutput {
+            color: #fff;
+            background: rgba(0, 0, 0, .85);
+            -webkit-user-select: none;
+        }
+        #loading {
+            text-align: center;
+            position: relative;
+        }
+        #loading strong {
+            display: block;
+            line-height: 30px;
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+        }
+        #loading span {
+            -webkit-animation: loading 1s infinite;
+            -webkit-animation-delay: .2s;
+            -webkit-transform: scale(0.8);
+            content: '';
+            display: inline-block;
+            height: 12px;
+            width: 12px;
+            border: 3px solid #fff;
+            border-radius: 50%;
+        }
+        #loading span:first-child {
+            -webkit-animation-delay: 0;
+        }
+        #loading span:last-child {
+            -webkit-animation-delay: .4s;
+        }
+        @-webkit-keyframes loading {
+            0% { -webkit-transform: scale(0.6); opacity: .6; }
+            50%	{ -webkit-transform: scale(0.8); opacity: 1; }
+            100% { -webkit-transform: scale(0.6); opacity: .6; }
+        }
     </style>
 
     <template>
+
         <div id="panelInput" class="flex one vertical layout">
 
             <fm-glyphs-input
@@ -120,9 +160,20 @@ Examples:
                     on-click="generate">生成</div>
             </div>
         </div>
-        <div id="panelOutput" class="flex one vertical layout">
+
+        <div id="panelPreview" class="flex one vertical layout">
             <fm-preview id="preview" class="flex"></fm-preview>
         </div>
+
+        <div id="layerOutput" hidden$="[[!showLayer]]" class="fit horizontal layout">
+            <span id="loading" class="flex self-center">
+                <span></span>
+                <span></span>
+                <span></span>
+                <strong>字体生成中，请稍后</strong>
+            </span>
+        </div>
+
     </template>
 </dom-module>
 
@@ -145,6 +196,10 @@ Examples:
                 type: String
             },
             selected: {
+                type: Boolean,
+                value: false
+            },
+            showLayer: {
                 type: Boolean,
                 value: false
             }
@@ -181,7 +236,10 @@ Examples:
         },
 
         generate: function () {
-            console.log(this.family, this.src, this.content);
+            if (this.$.generateAction.getAttribute('disabled') === null) {
+                console.log(this.family, this.src, this.content);
+                this.showLayer = true;
+            }
         }
     });
 </script>

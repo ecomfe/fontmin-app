@@ -12,6 +12,7 @@ Example:
 <link rel="import" href="../dep/layout/layout.html">
 
 <dom-module id="fm-preview">
+
     <style>
         :host {
             padding: 20px;
@@ -28,16 +29,19 @@ Example:
         }
         #tips {
             opacity: .3;
+            font-size: 14px;
         }
         #content {
+            word-break: break-word;
             font-weight: 400;
         }
     </style>
 
     <template>
-        <small hidden$="[[_computeTipsStatus(content)]]" id="tips">示例文字，请在左侧输入文本片段</small>
+        <div hidden$="[[_computeTipsStatus(content)]]" id="tips">示例文字，请在左侧输入文本片段</div>
         <div id="content"></div>
     </template>
+
 </dom-module>
 
 <script>
