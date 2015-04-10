@@ -28,7 +28,10 @@ function preventDefault(evt) {
  * Main
  */
 window.addEventListener('load', function () {
-    initMenu();
+    // only for mac
+    if (process.platform === 'darwin') {
+        initMenu();
+    }
 
     // Prevent drag events
     window.ondragover = preventDefault;

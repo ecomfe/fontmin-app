@@ -94,6 +94,12 @@ Example:
 
         setFont: function (family, src) {
             var self = this;
+
+            // fix windows url
+            if (process.platform === 'win32') {
+                src = src.replace(/\\/g, '\\\\');
+            }
+
             var font = new FontFace(
                 family,
                 'url("' + src + '")'
