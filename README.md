@@ -5,6 +5,11 @@ _Fontmin_ 是第一个纯 JavaScript 实现的字体子集化方案，_Fontmin A
 
 [下载 Fontmin App 发行版](https://github.com/ecomfe/fontmin/releases)
 
+Screenshot
+---
+
+![Fontmin App](https://cloud.githubusercontent.com/assets/157338/7086319/fee1246a-dfb1-11e4-9be7-b0e8dd007f59.png)
+
 Dev
 ---
 
