@@ -31,6 +31,12 @@ $ path/to/nwjs .
 
 _参考文档：[通过 nw.js 打开应用](https://github.com/nwjs/nw.js/wiki/How-to-run-apps)_
 
+Related
+---
+
++ [fontmin](https://github.com/ecomfe/fontmin)
++ [fonteditor](https://github.com/ecomfe/fonteditor)
+
 License
 ---
 

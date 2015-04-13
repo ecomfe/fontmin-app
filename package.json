@@ -33,6 +33,7 @@
     }
   ],
   "dependencies": {
-    "fontmin": "^0.5.0"
+    "fontmin": "^0.6.0",
+    "gulp-rename": "^1.2.2"
   }
 }
