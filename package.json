@@ -3,7 +3,7 @@
   "main": "main.html",
   "private": true,
   "description": "fontmin as an OS X and Windows app.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "keywords": [
     "fontmin",
