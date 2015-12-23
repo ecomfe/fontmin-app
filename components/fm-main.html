@@ -252,18 +252,13 @@ Examples:
 
             var fontmin = new Fontmin()
                 .src(this.src)
+                .use(Fontmin.otf2ttf())
                 .use(Fontmin.glyph({
                     text: this.content
                 }))
-                .use(Fontmin.ttf2eot({
-                    clone: true
-                }))
-                .use(Fontmin.ttf2woff({
-                    clone: true
-                }))
-                .use(Fontmin.ttf2svg({
-                    clone: true
-                }))
+                .use(Fontmin.ttf2eot())
+                .use(Fontmin.ttf2woff())
+                .use(Fontmin.ttf2svg())
                 .use(Fontmin.css({
                     base64: true
                 }))
